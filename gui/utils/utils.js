@@ -26,6 +26,7 @@ const toolkitData = {
   'Knowledge Search Toolkit': '/images/knowledeg_logo.png',
   'Notion Toolkit': '/images/notion_logo.png',
   'ApolloToolkit': '/images/apollo_logo.png',
+  'Medical Toolkit': '/images/doctor.png',
   'Google Analytics Toolkit': '/images/google_analytics_logo.png'
 };
 
