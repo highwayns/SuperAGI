@@ -1,6 +1,8 @@
 import requests
 import json
 import tiktoken
+import os
+from langflow import load_flow_from_json
 
 class MedicalHelper:
     def __init__(self, medical_token):
@@ -16,6 +18,11 @@ class MedicalHelper:
             "Content-Type": "application/json",
             "Notion-Version": "2022-06-28"
         }
+
+    def answer_question_usef_low(self, filename, filepath, question):
+        combined_path = os.path.join(filepath, filename)
+        flow = load_flow_from_json(combined_path)
+        return flow(question)
 
     def get_page_ids(self,title,filter_type):
         payload={"query": title,"sort": {"direction": "ascending","timestamp": "last_edited_time"},"filter": {"value": filter_type,"property": "object"},}
