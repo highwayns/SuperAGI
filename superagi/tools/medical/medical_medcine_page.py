@@ -38,27 +38,23 @@ class MedicalMedcinePageTool(BaseTool):
     class Config:
         arbitrary_types_allowed = True
 
-    def _execute(self, content_list:list, title:str, tags=None) -> str:
+    def _execute(self, question) -> str:
         """
-        Execute the Medical Medcine Page tool.
+        Execute the Medical Medcine answer tool.
 
         Args:
-            content: The List of dictionaries containing content,content language and content type.
-            title: The name of the page to be created.
-            tags: The list of tags for the page.
-            database_id: The id of the database in which the page is being created.
-
+            question: The content of the question to be entered.
+            
         Returns:
-            Page created successfully. or error message.
+            The answer to the question to be entered. or error message.
         """
+
         try:
+            filename = "loadmedicine.json"
+            filepath = "./langflow"
             medical_token=self.get_tool_config("MEDICAL_TOKEN")
-            medical_database_id=self.get_tool_config("MEDICAL_DATABASE_ID")
             medical_helper=MedicalHelper(medical_token)
-            response=medical_helper.create_page(content_list,title,medical_database_id,tags)
-            if response.status_code == 200:
-                return f'Page created successfully. Page ID: {response.json()["id"]}'
-            else:
-                return f"Failed to create page. Status code: {response.text}"
+            response=medical_helper.answer_question_usef_low(filename, filepath, question)
+            return response.text
         except Exception as err:
-            return f"Error: Unable to create page {err}"
+            return f"Error: Unable to answer {err}"
